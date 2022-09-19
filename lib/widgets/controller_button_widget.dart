@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
+import '../global/global_game_references.dart';
+import '../global/player_data.dart';
+
 class ControllerButoonWidget extends StatefulWidget {
   final String path;
   final VoidCallback onPressed;
@@ -30,7 +33,10 @@ class _ControllerButoonWidget extends State<ControllerButoonWidget> {
         },
         onTapUp: (_) {
           setState(() {
+            log("onTapUp");
             isPressed = false;
+            GlobalGameReference.instance.gameRefernce.worldData.playerData
+                .componentMotionState = ComponentMotionState.idle;
           });
         },
         child: Opacity(
