@@ -3,6 +3,7 @@ import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:flame/widgets.dart';
 import 'package:minecraft/global/global_game_references.dart';
+import 'package:minecraft/utils/game_methods.dart';
 
 import '../global/player_data.dart';
 
@@ -24,6 +25,9 @@ class PlayerComponent extends SpriteAnimationComponent {
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    priority = 2;
+
+    anchor = Anchor.bottomCenter;
     playerWalkingSpriteSheet = SpriteSheet(
         image: await Flame.images
             .load("sprite_sheets/player/player_walking_sprite_sheet.png"),
@@ -32,8 +36,7 @@ class PlayerComponent extends SpriteAnimationComponent {
         image: await Flame.images
             .load("sprite_sheets/player/player_idle_sprite_sheet.png"),
         srcSize: playerDimensions);
-    size = Vector2(100, 100);
-    position = Vector2(100, 500);
+    position = Vector2(100, 700);
     animation = idleAnimation;
   }
 
@@ -64,11 +67,18 @@ class PlayerComponent extends SpriteAnimationComponent {
         flipHorizontallyAroundCenter();
         isFacingRight = true;
       }
+      animation = walkingAnimation;
     }
     if (GlobalGameReference
             .instance.gameRefernce.worldData.playerData.componentMotionState ==
         ComponentMotionState.idle) {
       animation = idleAnimation;
     }
+  }
+
+  @override
+  void onGameResize(Vector2 newGameSize) {
+    super.onGameResize(newGameSize);
+    size = GameMethods.instance.blockSize * 1.5;
   }
 }
