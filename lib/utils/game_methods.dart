@@ -20,6 +20,10 @@ class GameMethods {
     return (chunkHeight * 0.2).toInt();
   }
 
+  int get maxSecondarySoilExtend {
+    return freeArea + 6;
+  }
+
   Size getScreenSize() {
     return MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
   }

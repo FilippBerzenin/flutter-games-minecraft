@@ -36,7 +36,7 @@ class PlayerComponent extends SpriteAnimationComponent {
         image: await Flame.images
             .load("sprite_sheets/player/player_idle_sprite_sheet.png"),
         srcSize: playerDimensions);
-    position = Vector2(100, 700);
+    position = Vector2(100, 100);
     animation = idleAnimation;
   }
 
