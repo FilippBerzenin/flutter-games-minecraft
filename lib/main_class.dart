@@ -26,15 +26,15 @@ class MainGame extends FlameGame {
     super.onLoad();
     camera.followComponent(playerComponent);
     add(playerComponent);
-    GameMethods.instance.addChunkToRightWorldChunks(
-        ChunkGenerationMethods.instance.generationChunk(0));
-    GameMethods.instance.addChunkToRightWorldChunks(
-        ChunkGenerationMethods.instance.generationChunk(1));
-    GameMethods.instance.addChunkToRightWorldChunks(
-        ChunkGenerationMethods.instance.generationChunk(2));
+    GameMethods.instance.addChunkToWorldChunks(
+        ChunkGenerationMethods.instance.generationChunk(-1), false);
+    GameMethods.instance.addChunkToWorldChunks(
+        ChunkGenerationMethods.instance.generationChunk(0), true);
+    GameMethods.instance.addChunkToWorldChunks(
+        ChunkGenerationMethods.instance.generationChunk(1), true);
+    renderChunk(-1);
     renderChunk(0);
     renderChunk(1);
-    renderChunk(2);
   }
 
   void renderChunk(int chunkIndex) {

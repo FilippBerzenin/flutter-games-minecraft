@@ -41,7 +41,24 @@ class GameMethods {
     return spriteSheet.getSprite(0, block.index);
   }
 
-  void addChunkToRightWorldChunks(List<List<Blocks?>> chunk) {
+  void addChunkToWorldChunks(
+      List<List<Blocks?>> chunk, bool isInRightWorldChunks) {
+    if (isInRightWorldChunks) {
+      chunk.asMap().forEach((int yIndex, List<Blocks?> value) {
+        GlobalGameReference
+            .instance.gameRefernce.worldData.rightWorldChunks[yIndex]
+            .addAll(value);
+      });
+    } else {
+      chunk.asMap().forEach((int yIndex, List<Blocks?> value) {
+        GlobalGameReference
+            .instance.gameRefernce.worldData.leftWorldChunks[yIndex]
+            .addAll(value);
+      });
+    }
+  }
+
+  void addChunkToleftWorldChunks(List<List<Blocks?>> chunk) {
     chunk.asMap().forEach((int yIndex, List<Blocks?> value) {
       GlobalGameReference
           .instance.gameRefernce.worldData.rightWorldChunks[yIndex]
@@ -51,14 +68,28 @@ class GameMethods {
 
   List<List<Blocks?>> getChunk(int chunkIndex) {
     List<List<Blocks?>> chunk = [];
-    GlobalGameReference.instance.gameRefernce.worldData.rightWorldChunks
-        .asMap()
-        .forEach((int index, List<Blocks?> rowOfBlocks) {
-      chunk.add(
-        rowOfBlocks.sublist(
-            chunkWidth * chunkIndex, chunkWidth * (chunkIndex + 1)),
-      );
-    });
+    if (chunkIndex >= 0) {
+      GlobalGameReference.instance.gameRefernce.worldData.rightWorldChunks
+          .asMap()
+          .forEach((int index, List<Blocks?> rowOfBlocks) {
+        chunk.add(
+          rowOfBlocks.sublist(
+              chunkWidth * chunkIndex, chunkWidth * (chunkIndex + 1)),
+        );
+      });
+    } else {
+      GlobalGameReference.instance.gameRefernce.worldData.leftWorldChunks
+          .asMap()
+          .forEach((int index, List<Blocks?> rowOfBlocks) {
+        chunk.add(
+          rowOfBlocks
+              .sublist(chunkWidth * (chunkIndex.abs() - 1),
+                  chunkWidth * (chunkIndex.abs()))
+              .reversed
+              .toList(),
+        );
+      });
+    }
     return chunk;
   }
 }
