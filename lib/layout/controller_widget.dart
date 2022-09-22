@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:minecraft/global/global_game_references.dart';
 import 'package:minecraft/global/player_data.dart';
@@ -22,7 +19,7 @@ class ControllerWidget extends StatelessWidget {
             ControllerButoonWidget(
               path: 'assets/controller/left_button.png',
               onPressed: () {
-                log("Left Buttom pressed");
+                // log("Left Buttom pressed");
                 playerData.componentMotionState =
                     ComponentMotionState.walkingLeft;
               },
@@ -30,13 +27,13 @@ class ControllerWidget extends StatelessWidget {
             ControllerButoonWidget(
               path: 'assets/controller/center_button.png',
               onPressed: () {
-                log("Center Buttom pressed");
+                // log("Center Buttom pressed");
               },
             ),
             ControllerButoonWidget(
               path: 'assets/controller/right_button.png',
               onPressed: () {
-                log("Right Buttom pressed");
+                // log("Right Buttom pressed");
                 playerData.componentMotionState =
                     ComponentMotionState.walkingRight;
               },

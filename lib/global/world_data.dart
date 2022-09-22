@@ -2,6 +2,7 @@ import 'package:minecraft/global/player_data.dart';
 import 'package:minecraft/utils/constants.dart';
 
 import '../resources/blocks.dart';
+import '../utils/game_methods.dart';
 
 class WorldData {
   final int seed;
@@ -15,4 +16,12 @@ class WorldData {
 
   List<List<Blocks?>> leftWorldChunks =
       List.generate(chunkHeight, (index) => []);
+
+  List<int> get chunksThatShouldBeRendered {
+    return [
+      GameMethods.instance.currentChunkIndex - 1,
+      GameMethods.instance.currentChunkIndex,
+      GameMethods.instance.currentChunkIndex + 1,
+    ];
+  }
 }

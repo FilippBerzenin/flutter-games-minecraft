@@ -33,7 +33,7 @@ class _ControllerButoonWidget extends State<ControllerButoonWidget> {
         },
         onTapUp: (_) {
           setState(() {
-            log("onTapUp");
+            // log("onTapUp");
             isPressed = false;
             GlobalGameReference.instance.gameRefernce.worldData.playerData
                 .componentMotionState = ComponentMotionState.idle;

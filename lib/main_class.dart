@@ -51,4 +51,15 @@ class MainGame extends FlameGame {
       });
     });
   }
+
+  double _playerPosition = 0;
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    if (_playerPosition != GameMethods.instance.playerXIndexPosition) {
+      _playerPosition = GameMethods.instance.playerXIndexPosition;
+      print(worldData.chunksThatShouldBeRendered);
+    }
+  }
 }
