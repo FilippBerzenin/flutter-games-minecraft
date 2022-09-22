@@ -43,10 +43,16 @@ class MainGame extends FlameGame {
     chunk.asMap().forEach((int yIndex, List<Blocks?> rowOfBlocks) {
       rowOfBlocks.asMap().forEach((int xIndex, Blocks? block) {
         if (block != null) {
-          add(BlockComponent(
+          add(
+            BlockComponent(
               block: block,
-              blockIndex: Vector2((chunkIndex * chunkWidth) + xIndex.toDouble(),
-                  yIndex.toDouble())));
+              blockIndex: Vector2(
+                (chunkIndex * chunkWidth) + xIndex.toDouble(),
+                yIndex.toDouble(),
+              ),
+              chunkIndex: chunkIndex,
+            ),
+          );
         }
       });
     });
