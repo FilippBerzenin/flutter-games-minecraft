@@ -57,9 +57,34 @@ class MainGame extends FlameGame {
   @override
   void update(double dt) {
     super.update(dt);
-    if (_playerPosition != GameMethods.instance.playerXIndexPosition) {
-      _playerPosition = GameMethods.instance.playerXIndexPosition;
-      print(worldData.chunksThatShouldBeRendered);
-    }
+    // if (_playerPosition != GameMethods.instance.playerXIndexPosition) {
+    //   _playerPosition = GameMethods.instance.playerXIndexPosition;
+    //   print(worldData.chunksThatShouldBeRendered);
+    // }
+    worldData.chunksThatShouldBeRendered
+        .asMap()
+        .forEach((int index, int chunkIndex) {
+      if (!worldData.currentlyRenderedChunks.contains(chunkIndex)) {
+        if (chunkIndex >= 0) {
+          if (worldData.rightWorldChunks[0].length ~/ chunkWidth <
+              chunkIndex + 1) {
+            GameMethods.instance.addChunkToWorldChunks(
+                ChunkGenerationMethods.instance.generationChunk(chunkIndex),
+                true);
+          }
+          renderChunk(chunkIndex);
+          worldData.currentlyRenderedChunks.add(chunkIndex);
+        } else {
+          if (worldData.leftWorldChunks[0].length ~/ chunkWidth <
+              chunkIndex.abs()) {
+            GameMethods.instance.addChunkToWorldChunks(
+                ChunkGenerationMethods.instance.generationChunk(chunkIndex),
+                false);
+          }
+          renderChunk(chunkIndex);
+          worldData.currentlyRenderedChunks.add(chunkIndex);
+        }
+      }
+    });
   }
 }
