@@ -4,9 +4,11 @@ import 'dart:math';
 import 'package:fast_noise/fast_noise.dart';
 import 'package:minecraft/global/global_game_references.dart';
 import 'package:minecraft/resources/biomes.dart';
+import 'package:minecraft/resources/structures.dart';
 import 'package:minecraft/utils/game_methods.dart';
 
 import '../resources/blocks.dart';
+import '../structures/trees.dart';
 import 'constants.dart';
 
 class ChunkGenerationMethods {
@@ -52,6 +54,7 @@ class ChunkGenerationMethods {
     chunk = generatePrimarySoil(chunk, yValues, biome);
     chunk = generateSecondarySoil(chunk, yValues, biome);
     chunk = generateStone(chunk);
+    chunk = addStructureToChunk(chunk, yValues, biome);
     return chunk;
   }
 
@@ -70,6 +73,44 @@ class ChunkGenerationMethods {
           i <= GameMethods.instance.maxSecondarySoilExtend;
           i++) {
         chunk[i][index] = BiomeData.getBiomeDataFor(biome).secondarySoil;
+      }
+    });
+    return chunk;
+  }
+
+  List<List<Blocks?>> addStructureToChunk(
+      List<List<Blocks?>> chunk, List<int> yValues, Biomes biome) {
+    BiomeData.getBiomeDataFor(biome)
+        .generationStructures
+        .asMap()
+        .forEach((key, Structure currentStructure) {
+      // Structure currentStructure = birchTree;
+
+      List<List<Blocks?>> structureList =
+          List.from(currentStructure.structure.reversed);
+
+      int xPositionOfStructure =
+          Random().nextInt(chunkWidth - currentStructure.maxWidth);
+      int yPositionOfStructure =
+          (yValues[xPositionOfStructure + (currentStructure.maxWidth ~/ 2)]) -
+              1;
+
+      birchTree.structure.reversed;
+
+      for (int indexOfRow = 0;
+          indexOfRow < currentStructure.structure.length;
+          indexOfRow++) {
+        List<Blocks?> rowOfBlocksInStructure = structureList[indexOfRow];
+        rowOfBlocksInStructure
+            .asMap()
+            .forEach((int index, Blocks? blockInStructure) {
+          if (chunk[yPositionOfStructure - indexOfRow]
+                  [xPositionOfStructure + index] ==
+              null) {
+            chunk[yPositionOfStructure - indexOfRow]
+                [xPositionOfStructure + index] = blockInStructure;
+          }
+        });
       }
     });
     return chunk;
