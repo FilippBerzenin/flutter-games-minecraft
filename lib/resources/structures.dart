@@ -15,4 +15,10 @@ class Structure {
     required this.maxOccurences,
     required this.maxWidth,
   });
+
+  factory Structure.getPlaintStructureForBlock(Blocks block) {
+    return Structure(structure: [
+      [block]
+    ], maxOccurences: 1, maxWidth: 1);
+  }
 }

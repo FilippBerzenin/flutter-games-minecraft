@@ -84,33 +84,35 @@ class ChunkGenerationMethods {
         .generationStructures
         .asMap()
         .forEach((key, Structure currentStructure) {
-      // Structure currentStructure = birchTree;
+      for (int occurrence = 0;
+          occurrence < currentStructure.maxOccurences;
+          occurrence++) {
+        List<List<Blocks?>> structureList =
+            List.from(currentStructure.structure.reversed);
 
-      List<List<Blocks?>> structureList =
-          List.from(currentStructure.structure.reversed);
+        int xPositionOfStructure =
+            Random().nextInt(chunkWidth - currentStructure.maxWidth);
+        int yPositionOfStructure =
+            (yValues[xPositionOfStructure + (currentStructure.maxWidth ~/ 2)]) -
+                1;
 
-      int xPositionOfStructure =
-          Random().nextInt(chunkWidth - currentStructure.maxWidth);
-      int yPositionOfStructure =
-          (yValues[xPositionOfStructure + (currentStructure.maxWidth ~/ 2)]) -
-              1;
+        birchTree.structure.reversed;
 
-      birchTree.structure.reversed;
-
-      for (int indexOfRow = 0;
-          indexOfRow < currentStructure.structure.length;
-          indexOfRow++) {
-        List<Blocks?> rowOfBlocksInStructure = structureList[indexOfRow];
-        rowOfBlocksInStructure
-            .asMap()
-            .forEach((int index, Blocks? blockInStructure) {
-          if (chunk[yPositionOfStructure - indexOfRow]
-                  [xPositionOfStructure + index] ==
-              null) {
-            chunk[yPositionOfStructure - indexOfRow]
-                [xPositionOfStructure + index] = blockInStructure;
-          }
-        });
+        for (int indexOfRow = 0;
+            indexOfRow < currentStructure.structure.length;
+            indexOfRow++) {
+          List<Blocks?> rowOfBlocksInStructure = structureList[indexOfRow];
+          rowOfBlocksInStructure
+              .asMap()
+              .forEach((int index, Blocks? blockInStructure) {
+            if (chunk[yPositionOfStructure - indexOfRow]
+                    [xPositionOfStructure + index] ==
+                null) {
+              chunk[yPositionOfStructure - indexOfRow]
+                  [xPositionOfStructure + index] = blockInStructure;
+            }
+          });
+        }
       }
     });
     return chunk;

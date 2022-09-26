@@ -1,6 +1,7 @@
 import 'package:minecraft/resources/structures.dart';
 import 'package:minecraft/structures/trees.dart';
 
+import '../structures/plants.dart';
 import 'blocks.dart';
 
 enum Biomes {
@@ -24,12 +25,22 @@ class BiomeData {
         return BiomeData(
             primarySoil: Blocks.sand,
             secondarySoil: Blocks.sand,
-            generationStructures: []);
+            generationStructures: [
+              cactus,
+              deadBush,
+            ]);
       case Biomes.birchForest:
         return BiomeData(
             primarySoil: Blocks.grass,
             secondarySoil: Blocks.dirt,
-            generationStructures: [birchTree]);
+            generationStructures: [
+              birchTree,
+              redFlower,
+              purpleFlower,
+              drippingWhiteFlower,
+              yellowFlower,
+              whiteFlower,
+            ]);
     }
   }
 }
